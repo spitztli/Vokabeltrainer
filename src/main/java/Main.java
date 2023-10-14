@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -6,9 +8,9 @@ public class Main {
         Vokabel v1 = new Vokabel("Hund", "dog");
         Vokabel v2 = new Vokabel( "Katze",  "cat");
 
-        Vokabelliste vl =new Vokabelliste();
-        vl.addVokabel(v1);
-        vl.addVokabel(v2);
+        ArrayList<Vokabel> vl = new ArrayList();
+        vl.add(v1);
+        vl.add(v2);
 
 
 
@@ -39,31 +41,34 @@ public class Main {
                 System.out.println("Trainingsmodus: Einträgen (1), Abfragen (2)");
                 int modus = Integer.parseInt(sc.next());
 
-                Vokabel[] vokabeln = vl.getVokabeln();
+                Comparator<Vokabel> comparator = new ComparatorErfolgsquote();
 
+                Trainingstyp t = new  TrainingstypAbfragen();
 
                 if(modus == 1){
 
                     sc.nextLine();
 
-                    TrainingstypLernen t = new TrainingstypLernen();
-                    t.trainiere(vokabeln);
+                    t = new TrainingstypLernen();
 
                 }
 
 
                 if(modus == 2) {
 
-                    TrainingstypAbfragen t = new TrainingstypAbfragen();
-                    t.trainiere(vokabeln);
+                    t = new TrainingstypAbfragen();
 
                 }
 
                 if(modus == 3){
 
-                    TraingstypBuchstaben t = new TraingstypBuchstaben();
-                    t.trainiere(vokabeln);
+                    t = new TraingstypBuchstaben();
+
                 }
+
+                t.setComparator(comparator);
+                trainiere(t, vl);
+
 
             }
             // Neue Vokabel hinzufügen
@@ -77,7 +82,7 @@ public class Main {
                 String ve = sc.next();
 
                 Vokabel v = new Vokabel(vd, ve);
-                vl.addVokabel(v);
+                vl.add(v);
 
             }
 
@@ -88,6 +93,15 @@ public class Main {
         }
         System.out.println("Toll, du hast " + totale_runde + " Runde trainiert.");
 
+    }
+
+    private static void trainiere(Trainingstyp t, ArrayList<Vokabel> vl) {
+
+        long start = System.currentTimeMillis();
+        t.trainiere(vl);
+        long ende = System.currentTimeMillis();
+        long dauer = ende - start;
+        System.out.println("Du hast " + dauer + "ms Benötigt!");
     }
 
 }

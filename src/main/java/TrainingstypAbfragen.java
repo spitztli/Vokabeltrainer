@@ -1,17 +1,30 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
-public class TrainingstypAbfragen {
+public class TrainingstypAbfragen implements Trainingstyp {
 
-    public void trainiere(Vokabel[] vokabeln){
+    private Comparator<Vokabel> comparator;
 
-        for (int i=0; i<=vokabeln.length-1; i++) {
-            trainiereVokabel(vokabeln[i]);
+    public void setComparator(Comparator<Vokabel> c){
+
+        this.comparator = c;
+    }
+
+    public void trainiere(ArrayList<Vokabel> vokabeln){
+
+        if (this.comparator != null){
+            vokabeln.sort(this.comparator);
+        }
+
+        for (int i=0; i<=vokabeln.size() -1; i++) {
+            trainiereVokabel(vokabeln.get(i));
         }
     }
 
     private void trainiereVokabel(Vokabel v) {
 
-        String loesung = "nein";
+        String loesung;
 
         Scanner sc = new Scanner(System.in);
 

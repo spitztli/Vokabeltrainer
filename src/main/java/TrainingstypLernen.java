@@ -1,18 +1,32 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
-public class TrainingstypLernen {
+public class TrainingstypLernen implements Trainingstyp {
 
-    public void trainiere(Vokabel[] vokabeln){
+    private Comparator<Vokabel> comparator;
 
-        Scanner sc = new Scanner(System.in);
+    @Override
+    public void setComparator(Comparator<Vokabel> c) {
+        this.comparator = c;
 
-        for (int i=0; i<=vokabeln.length-1; i++){
+    }
 
-            Vokabel v = vokabeln[i];
-            System.out.println(v.getVokabel_deutsch() + " - " + v.getVokabel_english());
+    public void trainiere(ArrayList<Vokabel> vokabeln) {
 
-            System.out.println("Weiter mit Enter");
-            sc.nextLine();
+        if (this.comparator != null) {
+            vokabeln.sort(this.comparator);
+
+            Scanner sc = new Scanner(System.in);
+
+            for (int i = 0; i <= vokabeln.size() - 1; i++) {
+
+                Vokabel v = vokabeln.get(i);
+                System.out.println(v.getVokabel_deutsch() + " - " + v.getVokabel_english());
+
+                System.out.println("Weiter mit Enter");
+                sc.nextLine();
+            }
         }
     }
 }
