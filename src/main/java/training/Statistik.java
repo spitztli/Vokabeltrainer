@@ -1,9 +1,11 @@
-public class VokabelStatistik {
+package training;
+
+public class Statistik {
     //Eigenschaften
     private int anzahl_trainigs = 0;
     private int anzahl_erfolgreich = 0;
 
-    public VokabelStatistik() {
+    public Statistik() {
     }
 
     public void updateTrainings(boolean erfolg) {

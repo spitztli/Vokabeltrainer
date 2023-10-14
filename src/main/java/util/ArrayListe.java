@@ -1,3 +1,5 @@
+package util;
+
 public class ArrayListe<T> {
 
 
@@ -27,7 +29,7 @@ public class ArrayListe<T> {
     }
 
 
-    //Neue Methode -> Das Array wird hier vergrössert
+    //Neue Methode Das Array wird hier vergrössert
     private void resizeArray(){
 
         T[] vn = (T[]) new Object[elemente.length+100];
